@@ -31,6 +31,7 @@
             <th>Start</th>
             <th>End</th>
             <th>Location</th>
+            <th>Description</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -41,8 +42,9 @@
                 <td>{{ event.startAt ? event.startAt|date('Y-m-d H:i') : '' }}</td>
                 <td>{{ event.endAt ? event.endAt|date('Y-m-d H:i') : '' }}</td>
                 <td>{{ event.location }}</td>
+                <td>{{ event.description }}</td>
                 <td>
-                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">view/edit</a>
+                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
