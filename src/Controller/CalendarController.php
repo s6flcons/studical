@@ -51,6 +51,10 @@ final class CalendarController extends AbstractController
     #[Route('/{id}', name: 'app_calendar_show', methods: ['GET'])]
     public function show(Calendar $calendar): Response
     {
+        if (!$calendar->isPublic() && $calendar->getOwner() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('You cannot view this calendar.');
+        }
+
         return $this->render('calendar/show.html.twig', [
             'calendar' => $calendar,
         ]);
