@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar index{% endblock %}
+
+{% block body %}
+    <h1>Calendar index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>IsPublic</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for calendar in calendars %}
+            <tr>
+                <td>{{ calendar.id }}</td>
+                <td>{{ calendar.name }}</td>
+                <td>{{ calendar.isPublic ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_calendar_show', {'id': calendar.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_calendar_new') }}">Create new</a>
+{% endblock %}

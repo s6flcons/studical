@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block body %}
+    <h1>Calendar</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ calendar.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ calendar.name }}</td>
+        </tr>
+        <tr>
+            <th>IsPublic</th>
+            <td>{{ calendar.isPublic ? 'Yes' : 'No' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_calendar_index') }}">back to list</a>
+{% endblock %}
