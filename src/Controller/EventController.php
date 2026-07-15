@@ -54,6 +54,8 @@ final class EventController extends AbstractController
     #[Route('/event/{id}/edit', name: 'app_event_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Event $event, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessEventVisible($event);
+
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
@@ -72,6 +74,8 @@ final class EventController extends AbstractController
     #[Route('/event/{id}', name: 'app_event_delete', methods: ['POST'])]
     public function delete(Request $request, Event $event, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessEventVisible($event);
+
         $calendarId = $event->getCalendar()->getId();
 
         if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->getPayload()->getString('_token'))) {
@@ -80,5 +84,14 @@ final class EventController extends AbstractController
         }
 
         return $this->redirectToRoute('app_calendar_show', ['id' => $calendarId], Response::HTTP_SEE_OTHER);
+    }
+
+    private function denyAccessUnlessEventVisible(Event $event): void
+    {
+        $calendar = $event->getCalendar();
+
+        if (!$calendar->isPublic() && $calendar->getOwner() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('You cannot access this event.');
+        }
     }
 }

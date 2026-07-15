@@ -40,7 +40,7 @@
                 <td>{{ event.startAt ? event.startAt|date('Y-m-d H:i') : '' }}</td>
                 <td>{{ event.endAt ? event.endAt|date('Y-m-d H:i') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">edit</a>
+                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">view/edit</a>
                 </td>
             </tr>
         {% else %}

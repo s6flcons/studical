@@ -7,7 +7,7 @@
 
     {{ include('event/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_calendar_show', {'id': event.calendar.id}) }}">back to calendar</a>
+    <a href="{{ path('app_calendar_show', {'id': event.calendar.id}) }}">Back to Calendar</a>
 
     {{ include('event/_delete_form.html.twig') }}
 {% endblock %}
