@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Calendar;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,9 +29,15 @@ class RegistrationController extends AbstractController
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
             $entityManager->persist($user);
-            $entityManager->flush();
 
-            // do anything else you need here, like send an email
+            // every user automatically gets their own private calendar
+            $privateCalendar = new Calendar();
+            $privateCalendar->setName('My Calendar');
+            $privateCalendar->setIsPublic(false);
+            $privateCalendar->setOwner($user);
+
+            $entityManager->persist($privateCalendar);
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_home');
         }
